@@ -70,7 +70,7 @@
   {
     "httpRequest": {
       "method": "GET",
-      "path": "/va/payments",
+      "path": "/bca/va/payments",
       "queryString": {
         "CompanyCode": "70001",
         "RequestID": "20200207151515"
@@ -84,7 +84,7 @@
   {
     "httpRequest": {
       "method": "GET",
-      "path": "/va/payments",
+      "path": "/bca/va/payments",
       "queryString": {
         "CompanyCode": ".*",
         "RequestID": ".*"
