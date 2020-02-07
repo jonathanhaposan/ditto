@@ -21,7 +21,7 @@ func main() {
 	}
 	err = json.Unmarshal(contractBytes, &contracts)
 	if err != nil {
-		log.Fatal("failed to unmarshal contracts")
+		log.Fatal("failed to unmarshal contracts", err)
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -35,7 +35,6 @@ func main() {
 		r.Header.Write(os.Stdout)
 		fmt.Println(string(bodyBytes))
 		fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
 
 		for _, contract := range contracts {
 			if contract.HttpOverrideForwardedRequest != nil {
@@ -98,6 +97,17 @@ func main() {
 				}
 			}
 			if !headerMatch {
+				continue
+			}
+
+			queryStringMatch := true
+			for k, v := range contract.HttpRequest.QueryString {
+				if !regexp.MustCompile(v).MatchString(r.URL.Query().Get(k)) {
+					queryStringMatch = false
+					break
+				}
+			}
+			if !queryStringMatch {
 				continue
 			}
 

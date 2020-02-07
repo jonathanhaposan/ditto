@@ -7,12 +7,13 @@ type Contract struct {
 }
 
 type HTTPRequest struct {
-	Method   string            `json:"method"`
-	Path     string            `json:"path"`
-	Headers  map[string]string `json:"headers"`
-	Body     Body              `json:"body"`
-	Protocol string            `json:"protocol"`
-	Host     string            `json:"host"`
+	Method      string            `json:"method"`
+	Path        string            `json:"path"`
+	Headers     map[string]string `json:"headers"`
+	Body        Body              `json:"body"`
+	Protocol    string            `json:"protocol"`
+	Host        string            `json:"host"`
+	QueryString map[string]string `json:"queryString"`
 }
 
 type HTTPResponse struct {

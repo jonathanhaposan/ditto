@@ -1,17 +1,25 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
-	"github.com/google/go-cmp/cmp"
+	"log"
 	"reflect"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func IsEqualJson(s1, s2 []byte) bool {
 	var o1 interface{}
 	var o2 interface{}
 
+	if bytes.Compare(s1, s2) == 0 {
+		return true
+	}
+
 	err := json.Unmarshal(s1, &o1)
 	if err != nil {
+		log.Println(err)
 		return false
 	}
 
@@ -33,7 +41,7 @@ func compare(v1, v2 reflect.Value) bool {
 		for _, key := range v1.MapKeys() {
 			valV1 := v1.MapIndex(key)
 			valV2 := v2.MapIndex(key)
-			if !valV2.IsValid()|| valV2.IsNil(){
+			if !valV2.IsValid() || valV2.IsNil() {
 				continue
 			}
 			o1 := reflect.ValueOf(valV1.Interface())

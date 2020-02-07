@@ -66,5 +66,33 @@
         "host": "app.sandbox.midtrans.com"
       }
     }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/va/payments",
+      "queryString": {
+        "CompanyCode": "70001",
+        "RequestID": "20200207151515"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": "{\"Transaction Data\":[{\"DetailBills\":[{\"BillReference\":\"\",\"BillNumber\":\"12345\"}],\"RequestID\":\"20200207151515\",\"TransactionDate\":\"2020-02-02T16:17:00.000+07:00\",\"PaymentFlagStatus\":\"Success\",\"Reference\":\"01234567890\",\"TotalAmount\":\"100000\",\"PaidAmount\":\"100000\"}]}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/va/payments",
+      "queryString": {
+        "CompanyCode": ".*",
+        "RequestID": ".*"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": "{\"Transaction Data\":[]}"
+    }
   }
 ]
