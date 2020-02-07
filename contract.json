@@ -1,0 +1,70 @@
+[
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/iris/api/v1/payouts",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Basic .*",
+        "X-Idempotency-Key": "ID\\d{13}"
+      },
+      "body": {
+        "json": "{\"payouts\":[{\"beneficiary_name\":\"success case\",\"beneficiary_account\":\"123456\",\"beneficiary_bank\":\"mandiri\"}]}"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": "{\"payouts\":[{\"status\":\"queued\",\"reference_no\":\"mock\"}]}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/iris/api/v1/payouts",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Basic .*",
+        "X-Idempotency-Key": "ID\\d{13}"
+      },
+      "body": {
+        "json": "{\"payouts\":[{\"beneficiary_name\":\"beneficiary error case\",\"beneficiary_account\":\"123456\",\"beneficiary_bank\":\"mandiri\"}]}"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 400,
+      "body": "{\"errors\":{\"0\":[\"Beneficiary account is too short (minimum is 6 characters)\"]}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/iris/api/v1/payouts"
+    },
+    "httpOverrideForwardedRequest": {
+      "httpRequest": {
+        "headers": {
+          "Host": "app.sandbox.midtrans.com"
+        },
+        "protocol": "https",
+        "host": "app.sandbox.midtrans.com"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/iris/api/v1/account_validation"
+    },
+    "httpOverrideForwardedRequest": {
+      "httpRequest": {
+        "headers": {
+          "Host": "app.sandbox.midtrans.com"
+        },
+        "protocol": "https",
+        "host": "app.sandbox.midtrans.com"
+      }
+    }
+  }
+]
